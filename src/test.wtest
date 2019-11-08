@@ -1,0 +1,48 @@
+import semillas.*
+import variedades.*
+import inta.*
+describe "test primera parte"{
+	
+		var menta = new Menta(altura=1,fechaDeObtencion=2005)
+		var soja = new Soja(altura=0.6,fechaDeObtencion=2009)
+		var quinoa = new Quinoa(altura=1,fechaDeObtencion=2010,horasDeSol=12)
+		var parcela1 = new ParcelasIndustriales()
+		var sojaEspecial = new SojaTransgenica(altura=2,fechaDeObtencion=2006)
+		var mentaEspecial = new Hiervabuena(altura=0.4,fechaDeObtencion=2012)
+		var parcela2 = new ParcelasEcologicas()
+	fixture {
+		parcela1.plantar(soja)
+		parcela1.plantar(quinoa)
+		parcela2.plantar(sojaEspecial)
+		parcela2.plantar(mentaEspecial)
+		inta.agregarParcela(parcela1)
+		inta.agregarParcela(parcela2)
+	}
+	
+		
+	test "menta" {
+
+	assert.equals(3,menta.espacioQueOcupa())
+	assert.that(menta.daNuevaSemillas())
+	}
+	test "soja"{
+	
+	assert.equals(7,soja.horasDeSol())	
+	assert.notThat(soja.daNuevaSemillas())
+	}
+	test "quinoa"{
+		
+	assert.that(quinoa.daNuevaSemillas())	
+	}
+
+	test "plantas bien asociadas de la parcela1"{
+	
+	assert.equals(1,parcela1.cantidadDePlantasBienAsociadas())	
+	}
+	test "plantas bien asociadas de la parcela2"{
+	assert.equals(0,parcela2.cantidadDePlantasBienAsociadas())	
+	}
+	test "el inta"{
+	assert.equals(parcela1,inta.parcelaMasAutosustentable())	
+	}
+}
